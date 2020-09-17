@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+{% if user.is_authenticated %}
+        <div id="home" class="container mx-auto text-center" style="margin: 150px 0px 80px 0px;">
+            <div class="col-md-6 mx-auto text-center">
+                <h1>You're Logged In</h1>
+                <a href="{% url 'signout' %}">Logout</a>
+        </div>
+</div>
+{% else %}
+    <style>
+        #contacts{
+            display: none;
+        }
+    </style>
+    <div id="eula_form" class="container mx-auto text-center" style="margin: 150px 0px 80px 0px;">
+        <div class="col-md-6 mx-auto text-center">
+            <div class="eulacon bg_wheat">
+                <div class="header" style="border-bottom: 2px solid white; padding: 20px;">
+                    <h3 style="font-weight: 700;">License Agreement</h3>
+                    <h6>You must accept the license agreement before continue,</h6>
+                </div>
+                <div class="mid-part mr-auto text-left" style="padding: 20px;">
+                    <p>
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                    </p>
+                </div>
+                <div class="footer" style="border-top: 2px solid white; padding: 10px;">
+                    <div class="row">
+                        <div class="col-md-6" style="padding: 5px;">
+                            <button onclick="hide('#eula_form'); fadein('#plans'); $.cookie('accepted', true); $.removeCookie('rejected');" class="accept_agreement btn btn-dark">Accept</button>
+                        </div>
+                        <div class="col-md-6" style="padding: 5px;">
+                            <button class="reject_agreement btn btn-danger" onclick="$.cookie('rejected', true); $.removeCookie('accepted');">Reject</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="plans" class="container mx-auto text-center" style="margin-top: 50px; display: none;">
+        <h1>Membership Plans</h1>
+        <Br><Br>
+        <div class="row">
+            {% for t in types %}
+            <div class="plan bg_wheat" style="width: 200px; padding: 20px; margin: 10px;">
+                <h3 style="font-weight: 700;">Type {{ t.type_name }}</h3>
+                <br>
+                <button onclick="type_selected('{{ t.type_name }}');" class="selected_agreement btn btn-dark">Select</button>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script>
+        
+    </script>
+{% endif %}
+{% endblock %}

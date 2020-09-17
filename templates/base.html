@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Document Center">
+    <meta name="keywords" content="Document Center">
+    <meta name="author" content="Document Center">
+    <link rel="icon" href="img/fav.jpg">
+    <title>Document Center</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,900;1,100;1,200;1,300;1,400;1,500&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha512-3j3VU6WC5rPQB4Ld1jnLV7Kd5xr+cq9avvhwqzbH/taCRNURoeEpoPBK9pDyeukwSxwRPJ8fDgvYXd6SkaZ2TA==" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+
+    <style>
+        body{
+            font-family: 'Baloo 2';
+        }
+        @media(max-width: 769px) {
+            .con{
+                margin-top: 0px !important;
+            }
+            .links{
+                margin: 5px 80px 5px 80px !important;
+            }
+            /* .cn{
+                margin-top: 80px !important;
+            } */
+            /* .wrap-img{
+                transform: scale(2);
+            } */
+            .wrap-img{
+                display: none;
+            }
+            .wrap-img2{
+                display: block !important;
+            }
+            .foot{
+                
+                font-size: 3rem !important;
+            }
+            .foot > span{
+                font-size: 3rem !important;
+            }
+            .bhajan > p{
+                font-size: 1rem !important;
+            }
+        }
+        audio{
+            width: 100%;
+        }
+        .wrap-img2{
+            display: none;
+        }
+        @media(max-width: 600px) {}
+
+        @media(max-width: 400px) {}
+        .links{
+            margin: 5px 40px 5px 40px;
+            padding: 5px;
+            background-color: rgb(77, 104, 255);
+            border-radius: 5px;
+        }
+        .foot > span{
+            text-decoration-line: underline;
+        }
+        .links > a{
+            font-size: 1.2rem;
+            text-decoration: none;
+            color: white;
+            /* color: rgb(255, 102, 47); */
+        }
+        a{
+            font-weight: 700 !important;
+        }
+        .links > a:hover{
+            font-weight: 700;
+            font-size: 1rem;
+            color: #000;
+            transition: ease 0.3s;
+        }
+        img{
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            height: auto;
+            display: block;
+        }
+        .bhajan > p{
+            font-size: 1.3rem;
+        }
+        .bg_wheat{
+            background: rgb(255, 238, 206);
+        }
+        h1{
+            font-family: 'Roboto';
+        }
+    </style>
+</head>
+<body>
+    {% block body %}
+
+    {% endblock %}
+<!-- Contacts -->
+<div id="contacts" class="mx-auto text-center container" style="background-color: white; z-index: 3;">
+    <hr style="background-color: #1d37ff;">
+    <div class="col" style="margin-bottom: 20px;">
+        <div class="row">
+            <div class="ft1 col-md-4">
+                <h6>Copyright &copy; <a href="">document.center.in 2020</a></h6>
+            </div>
+            <div class="ft1 col-md-4">
+                <p></p>
+            </div>
+            <div class="ft2 col-md-4">
+                <h6><a href="">document.center.in@gmail.com</a></h6>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contacts -->
+</body>
+<script>
+    $(document).ready(function () {
+        console.log($.cookie('type'));
+        if($.cookie('accepted') == 'true'){
+            hide('#eula_form');
+            show('#plans');
+        }
+    });
+    function hide(e){
+        $(e).hide();
+    }
+    function show(e){
+        $(e).show();
+    }
+    function fadeout(e){
+        $(e).fadeOut();
+    }
+    function fadein(e){
+        $(e).fadeIn();
+    }
+    function type_selected(type){
+        $.cookie('type', null);
+        $.cookie('type', type);
+        location.replace('{% url "getin" %}');
+    }
+</script>
+</html>
