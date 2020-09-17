@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block body %}
+<style>
+    #contacts, .menus{
+        display: none;
+    }
+</style>
 {% if user.is_authenticated %}
         <div id="home" class="container mx-auto text-center" style="margin: 150px 0px 80px 0px;">
             <div class="col-md-6 mx-auto text-center">
@@ -9,11 +14,6 @@
         </div>
 </div>
 {% else %}
-    <style>
-        #contacts{
-            display: none;
-        }
-    </style>
     <div id="eula_form" class="container mx-auto text-center" style="margin: 150px 0px 80px 0px;">
         <div class="col-md-6 mx-auto text-center">
             <div class="eulacon bg_wheat">
@@ -42,9 +42,9 @@
     <div id="plans" class="container mx-auto text-center" style="margin-top: 50px; display: none;">
         <h1>Membership Plans</h1>
         <Br><Br>
-        <div class="row">
+        <div class="row  mx-auto text-center">
             {% for t in types %}
-            <div class="plan bg_wheat" style="width: 200px; padding: 20px; margin: 10px;">
+            <div class="plan bg_wheat  mx-auto text-center" style="width: 200px; padding: 20px; margin: 10px;">
                 <h3 style="font-weight: 700;">Type {{ t.type_name }}</h3>
                 <br>
                 <button onclick="type_selected('{{ t.type_name }}');" class="selected_agreement btn btn-dark">Select</button>

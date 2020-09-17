@@ -26,12 +26,13 @@ def getin(request):
         id_email = request.POST['mail']
 
         e_mail = User.objects.filter(email=id_email)
+        username = id_email.split('@')
         if e_mail:
-            user = authenticate(request, email=id_email, password=id_password)
+            user = authenticate(request, username=username[0], password=id_password)
             login(request, user)
-            return HttpResponse('done')
+            if login:
+                return HttpResponse('done')
         else:
-            username = id_email.split('@')
             user = User.objects.create(username=username[0], email=id_email, password=id_password)
             user.set_password(id_password)
             user.save()
@@ -42,4 +43,4 @@ def getin(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('index')
+    return redirect('getin')

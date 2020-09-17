@@ -31,6 +31,9 @@
     
 
     <style>
+        .active{
+            color: red !important;
+        }
         body{
             font-family: 'Baloo 2';
         }
@@ -116,27 +119,17 @@
     </style>
 </head>
 <body>
+    <div class="menus col-md-3 mx-auto text-left"  style="position: absolute; top: 10px; left: 10px">
+        <h4 style="font-weight: 700;">Menu</h4>
+        <a class="home" href="{% url 'home' %}">Home</a><br>
+        <a class="membership" href="{% url 'membership' %}">Membership</a><br>
+        <a class="docs" href="{% url 'docs' %}">Docs</a><br>
+        <a class="bids" href="{% url 'bids' %}">Bids</a><Br>
+        <a class="logout" href="{% url 'signout' %}">Logout</a>
+    </div>
     {% block body %}
 
     {% endblock %}
-<!-- Contacts -->
-<div id="contacts" class="mx-auto text-center container" style="background-color: white; z-index: 3;">
-    <hr style="background-color: #1d37ff;">
-    <div class="col" style="margin-bottom: 20px;">
-        <div class="row">
-            <div class="ft1 col-md-4">
-                <h6>Copyright &copy; <a href="">document.center.in 2020</a></h6>
-            </div>
-            <div class="ft1 col-md-4">
-                <p></p>
-            </div>
-            <div class="ft2 col-md-4">
-                <h6><a href="">document.center.in@gmail.com</a></h6>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Contacts -->
 </body>
 <script>
     $(document).ready(function () {
