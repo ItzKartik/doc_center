@@ -28,10 +28,14 @@ def membership(request):
     types = models.types.objects.all()
     return render(request, 'homepages/membership.html', {'types': types})
 
+def doc_view(request, pk):
+    docs = models.docs.objects.get(doc_id=pk)
+    return render(request, 'homepages/doc_view.html', {'docs': docs})
+
 def upload_docs(request):
     if request.method == 'POST':
         docs = models.docs.objects.create(
-            user_id=give_u(request.user.username), doc_name=request.POST['doc_name'], doc=request.POST['document'])
+            user_id=give_u(request.user.username), doc_name=request.POST['doc_name'], doc=request.FILES['document'])
         return redirect('docs')
 
 def docs(request):

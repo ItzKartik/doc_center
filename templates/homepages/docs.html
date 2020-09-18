@@ -5,9 +5,10 @@
     <script>
         $('.docs').addClass('active');
     </script>
+    <!-- Upload Docs -->
     <div id="upload_doc_con" class="col-md-12 mx-auto text-center" style="position: fixed; z-index: 2000; display: none;">
         <div class="col-md-3 mx-auto text-center bg_wheat" style="padding: 15px; border-radius: 10px;">
-            <form action="{% url 'upload_docs' %}" method="POST" enctype="multipart/form-data">
+            <form enctype="multipart/form-data" action="{% url 'upload_docs' %}" method="POST">
                 {% csrf_token %}
                 <div class="form-group">
                     <input type="file" name="document" class="form-control">
@@ -15,10 +16,11 @@
                 <div class="form-group">
                     <input type="text" name="doc_name" class="form-control" placeholder="Document Title">
                 </div>
-                <button class="upload_docs btn btn-dark">Submit</button>
+                <button type="submit" class="btn btn-dark">Submit</button>
             </form>
         </div>
     </div>
+    <!-- Upload Docs -->
     <div id="docs" class="container mx-auto text-center" style="margin: 10px 0px 80px 0px;">
         <div class="row">
             <div class="col-md-12 mx-auto text-center">
@@ -30,17 +32,24 @@
             {% csrf_token %}
             <button onclick="fadein('#upload_doc_con');" class="upload_docs btn btn-dark">Upload</button>
         </div>
-        <div id="my_docs" style="display: none;">
-            <div id="my_doc" class="col-md-12 mx-auto text-right">
-            </div>
-            <hr style="background: wheat;">
+        <bR><Br>
+        <!-- My Docs -->
+        <div id="my_docs" class="row">
         </div>
+        <hr style="background: wheat;">
+        <!-- My Docs -->
+        <bR><br>
+        <!-- All Docs -->
+        <div class="row">
         {% for d in docs %}
         <div class="docs bg_wheat mx-auto text-center" style="width: 200px; padding: 20px; margin: 10px;">
-            <i style="font-size: 3rem;" class="fas fa-file"></i>
-            <h3 style="font-weight: 700;">Type {{ d.doc_name }}</h3>
+            <i style="font-size: 3rem;" class="fas fa-file">
+            </i><br>
+            <a style="color: black;" href="{% url 'doc_view' pk=d.doc_id %}"><h3 style="font-weight: 700;">{{ d.doc_name }}</h3></a>
         </div>
         {% endfor %}
+        </div>
+        <!-- All Docs -->
     </div>
     <Script>
         function fetch_my_docs(){
@@ -49,14 +58,12 @@
                 url: "{% url 'docs' %}",
                 data: {'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()},
                 success: function(data){
-                    console.log(data);
-                    var d = JSON.parse(data);
-                    for(var i = 0; i < d.length; i++){
-                        $('#my_doc').html(
-                        '<div class="docs bg_wheat mx-auto text-center" style="width: 200px; padding: 20px; margin: 10px;"><i style="font-size: 3rem;" class="fas fa-file"></i>'+
-                        '<h3 style="font-weight: 700;">'+data[i]['fields']['doc_name']+'</h3></div>')
-                    };
                     show('#my_docs');
+                    for(var i = 0; i < data.length; i++){
+                        $('#my_docs').append(
+                        '<div class="docs bg_wheat mx-auto text-center" style="width: 200px; padding: 20px; margin: 10px;"><i style="font-size: 3rem;" class="fas fa-file"></i>'+
+                        '<br><h3 style="font-weight: 700;">'+data[i]['fields']['doc_name']+'</h3></div>')
+                    };
                 },
                 error: function(data){
                     alert('Some Unknown Error Occured !!!');

@@ -13,6 +13,7 @@ urlpatterns = [
     path('upload_docs/', views.upload_docs, name="upload_docs"),
     path('home/', TemplateView.as_view(template_name="homepages/home.html"), name="home"),
     path('docs/', views.docs, name="docs"),
+    path('doc_view/<str:pk>', views.doc_view, name="doc_view"),
     path('activity/', TemplateView.as_view(template_name="homepages/activity.html"), name="activity"),
     path('membership/', views.membership, name="membership"),
     path('bids/', TemplateView.as_view(template_name="homepages/bids.html"), name="bids"),
