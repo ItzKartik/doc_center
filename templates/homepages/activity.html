@@ -3,27 +3,16 @@
 {% block body %}
 {% if user.is_authenticated %}
     <script>
-        $('.membership').addClass('active');
+        $('.activity').addClass('active');
     </script>
     <div id="home" class="container mx-auto text-center" style="margin: 10px 0px 80px 0px;">
         <div class="row">
             <div class="col-md-9 mx-auto text-center .col-md-pull-12">
-                <h1>Membership</h1>
-            </div>
-        </div>
-        <div id="plans" class="container mx-auto text-center" style="margin-top: 50px; display: none;">
-            <div class="row  mx-auto text-center">
-                {% for t in types %}
-                <div class="plan bg_wheat  mx-auto text-center" style="width: 200px; padding: 20px; margin: 10px;">
-                    <h3 style="font-weight: 700;">Type {{ t.type_name }}</h3>
-                    <br>
-                    <button onclick="type_selected('{{ t.type_name }}');" class="selected_agreement btn btn-dark">Select</button>
-                </div>
-                {% endfor %}
+                <h1>Activity</h1>
             </div>
         </div>
     </div>
-    <div class="text" style="padding: 10px; margin-top: 170px;">
+    <div class="text" style="padding: 10px; margin-top: 200px;">
         <textarea name="" class="form-control" placeholder="Click to add text" id="" cols="30" rows="10"></textarea>
     </div>
 {% else %}

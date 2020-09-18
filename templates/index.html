@@ -2,11 +2,16 @@
 {% load static %}
 {% block body %}
 <style>
-    #contacts, .menus{
+    #contacts, .menus, .navbar{
         display: none;
     }
 </style>
 {% if user.is_authenticated %}
+        <Script>
+            $(document).ready(function(){
+                location.replace('{% url "home" %}');
+            });
+        </Script>
         <div id="home" class="container mx-auto text-center" style="margin: 150px 0px 80px 0px;">
             <div class="col-md-6 mx-auto text-center">
                 <h1>You're Logged In</h1>

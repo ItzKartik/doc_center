@@ -119,14 +119,36 @@
     </style>
 </head>
 <body>
-    <div class="menus col-md-3 mx-auto text-left"  style="position: absolute; top: 10px; left: 10px">
-        <h4 style="font-weight: 700;">Menu</h4>
-        <a class="home" href="{% url 'home' %}">Home</a><br>
-        <a class="membership" href="{% url 'membership' %}">Membership</a><br>
-        <a class="docs" href="{% url 'docs' %}">Docs</a><br>
-        <a class="bids" href="{% url 'bids' %}">Bids</a><Br>
-        <a class="logout" href="{% url 'signout' %}">Logout</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Doc Center</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="home nav-link" href="{% url 'home' %}">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="membership nav-link" class="membership" href="{% url 'membership' %}">Membership</a>
+        </li>
+        <li class="nav-item">
+            <a class="docs nav-link" class="docs" href="{% url 'docs' %}">Docs</a>
+        </li>
+        <li class="nav-item">
+            <a class="bids nav-link" class="bids" href="{% url 'bids' %}">Bids</a>
+        </li>
+        <li class="nav-item">
+            <a class="activity nav-link" class="activity" href="{% url 'activity' %}">Activity</a>
+        </li>
+        <li class="nav-item">
+            <a class="logout nav-link" class="logout" href="{% url 'signout' %}">Logout</a>
+        </li>
+        </ul>
     </div>
+    </nav>
+    <bR><Br>
     {% block body %}
 
     {% endblock %}

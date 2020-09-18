@@ -16,9 +16,34 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core import serializers
 import uuid
 
+def give_u(uname):
+    user = User.objects.get(username=uname)
+    return user
+
 def index(request):
     types = models.types.objects.all()
     return render(request, 'index.html', {'types': types})
+
+def membership(request):
+    types = models.types.objects.all()
+    return render(request, 'homepages/membership.html', {'types': types})
+
+def upload_docs(request):
+    if request.method == 'POST':
+        docs = models.docs.objects.create(
+            user_id=give_u(request.user.username), doc_name=request.POST['doc_name'], doc=request.POST['document'])
+        return redirect('docs')
+
+def docs(request):
+    if request.method == 'POST':
+        user = request.user.username
+        u = User.objects.get(username=user)
+        docs = models.docs.objects.filter(user_id=u)
+        d = serializers.serialize('json', docs)
+        return HttpResponse(d, content_type="application/json")
+    else:
+        docs = models.docs.objects.all()
+        return render(request, 'homepages/docs.html', {'docs': docs})
 
 def getin(request):
     if request.method == 'POST':
