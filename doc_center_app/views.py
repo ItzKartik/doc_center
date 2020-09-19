@@ -25,12 +25,21 @@ def give_u(uname):
     user = User.objects.get(username=uname)
     return user
 
-def check_for_membership(request):
-    m = models.type_of_membership.objects.filter(user_id=give_u(request.user.username))
-    if m:
-        return True
-    else:
+
+def check_type(request):
+    try:
+        m = models.type_of_membership.objects.get(user_id=give_u(request.user.username))
+        if m:
+            return m
+    except (MultiValueDictKeyError, ObjectDoesNotExist):
         return False
+
+# def check_for_membership(request):
+#     m = models.type_of_membership.objects.filter(user_id=give_u(request.user.username))
+#     if m:
+#         return True
+#     else:
+#         return False
 
 def index(request):
     types = models.types.objects.all()
@@ -53,7 +62,7 @@ def membership(request):
 
 def doc_view(request, pk):
     docs = models.docs.objects.get(doc_id=pk)
-    if check_for_membership(request) == True:
+    if check_type(request):
         context = {
             'docs': docs,
             'error': None
@@ -69,31 +78,35 @@ def upload_docs(request):
     if request.method == 'POST':
         doc_name = request.POST['doc_name']
         docs = models.docs.objects.create(
-            user_id=give_u(request.user.username), doc_name=doc_name, doc=request.FILES['document'])
+            user_id=give_u(request.user.username), doc_name=doc_name, type_of=check_type(request), doc=request.FILES['document'])
         activity = doc_name+' Uploaded'
         save_activity(request, activity)
         return redirect('docs')
 
 def docs(request):
+    user = request.user.username
     if request.method == 'POST':
-        user = request.user.username
-        u = User.objects.get(username=user)
+        u = give_u(user)
         docs = models.docs.objects.filter(user_id=u)
         d = serializers.serialize('json', docs)
         return HttpResponse(d, content_type="application/json")
     else:
-        docs = models.docs.objects.all()
-        if check_for_membership(request) == True:
+        user_type_of = check_type(request)
+        print(user_type_of.membership_type.number_name)
+        if user_type_of:
+            docs = models.docs.objects.filter(type_of__lte=user_type_of)
             context = {
                 'docs': docs,
                 'error': None
             }
+            return render(request, 'homepages/docs.html', context)
         else:
             context = {
-                'docs': docs,
+                'docs': None,
                 'error': 'You Have To Select A Membership Type Before Using This Service'
             }
-        return render(request, 'homepages/docs.html', context)
+            return render(request, 'homepages/docs.html', context)
+
 
 
 def bids(request):
@@ -101,13 +114,18 @@ def bids(request):
         doc_id = request.POST['doc_id']
         bid_amt = request.POST['bid_amt']
         docs = models.docs.objects.get(doc_id=doc_id)
-        bids = models.bids.objects.create(linker=docs, owner=docs.user_id.username, bid_amt=bid_amt)
 
-        activity = 'Bidded On '+docs.doc_name
-        save_activity(request, activity)
-
-        bids.save()
-        return HttpResponse('Done')
+        type_of = check_type(request)
+        type_of = type_of.membership_type.number_name
+        docs_type = docs.type_of.membership_type.number_name
+        if docs_type <= type_of:
+            bids = models.bids.objects.create(linker=docs, owner=docs.user_id.username, user_id=give_u(request.user.username), bid_amt=bid_amt)
+            activity = 'Bidded On '+docs.doc_name
+            save_activity(request, activity)
+            bids.save()
+            return HttpResponse('Done')
+        else:
+            return HttpResponse('error')
     else:
         bids = models.bids.objects.filter(owner=request.user.username)
         context = {
@@ -116,8 +134,11 @@ def bids(request):
         return render(request, 'homepages/bids.html', context)
 
 def activity(request):
-    act = models.activity.objects.filter(user_id=give_u(request.user.username))
-    return render(request, 'homepages/activity.html', {'act': act})
+    if User.objects.filter(username=request.user.username):
+        act = models.activity.objects.filter(user_id=give_u(request.user.username)).order_by('-pub_date')
+        return render(request, 'homepages/activity.html', {'act': act})
+    else:
+        return render(request, 'homepages/activity.html', {'act': None})
 
 def getin(request):
     if request.method == 'POST':
