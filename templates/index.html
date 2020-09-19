@@ -19,7 +19,7 @@
         </div>
 </div>
 {% else %}
-    <div id="eula_form" class="container mx-auto text-center" style="margin: 150px 0px 80px 0px;">
+    <div id="eula_form" class="container mx-auto text-center" style="margin: 120px 0px 80px 0px;">
         <div class="col-md-6 mx-auto text-center">
             <div class="eulacon bg_wheat">
                 <div class="header" style="border-bottom: 2px solid white; padding: 20px;">
@@ -34,7 +34,7 @@
                 <div class="footer" style="border-top: 2px solid white; padding: 10px;">
                     <div class="row">
                         <div class="col-md-6" style="padding: 5px;">
-                            <button onclick="hide('#eula_form'); fadein('#plans'); $.cookie('accepted', true); $.removeCookie('rejected');" class="accept_agreement btn btn-dark">Accept</button>
+                            <button onclick="$.cookie('accepted', true); $.removeCookie('rejected'); location.replace('/getin/');" class="accept_agreement btn btn-dark">Accept</button>
                         </div>
                         <div class="col-md-6" style="padding: 5px;">
                             <button class="reject_agreement btn btn-danger" onclick="$.cookie('rejected', true); $.removeCookie('accepted');">Reject</button>
@@ -44,21 +44,13 @@
             </div>
         </div>
     </div>
-    <div id="plans" class="container mx-auto text-center" style="margin-top: 50px; display: none;">
-        <h1>Membership Plans</h1>
-        <Br><Br>
-        <div class="row  mx-auto text-center">
-            {% for t in types %}
-            <div class="plan bg_wheat  mx-auto text-center" style="width: 200px; padding: 20px; margin: 10px;">
-                <h3 style="font-weight: 700;">Type {{ t.type_name }}</h3>
-                <br>
-                <button onclick="type_selected('{{ t.type_name }}');" class="selected_agreement btn btn-dark">Select</button>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
     <script>
-        
+        $(document).ready(function () {
+            if($.cookie('accepted') == 'true'){
+                hide('#eula_form');
+                location.replace('{% url "getin" %}');
+            }
+        });
     </script>
 {% endif %}
 {% endblock %}

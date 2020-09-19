@@ -12,9 +12,25 @@
             </div>
         </div>
     </div>
-    <div class="text" style="padding: 10px; margin-top: 200px;">
-        <textarea name="" class="form-control" placeholder="Click to add text" id="" cols="30" rows="10"></textarea>
+    <div class="container table-responsive">
+        <table class="table">
+            <tr>
+                <td style="font-weight: 700;">Doc Name</td>
+                <td style="font-weight: 700;">Bid Amount</td> 
+                <td style="font-weight: 700;">Bid Date</td>
+            </tr>
+            {% for d in bids %}
+                <tr>
+                    <td>#{{ d.linker.doc_name }}</td>
+                    <td>{{ d.bid_amt }}</td> 
+                    <td><time>{{ d.bid_date }}</time></td>
+                </tr>
+            {% endfor %}
+        </table>
     </div>
+    <!-- <div class="text" style="padding: 10px; margin-top: 50px;">
+        <textarea name="" class="form-control" placeholder="Click to add text" id="" cols="30" rows="10"></textarea>
+    </div> -->
 {% else %}
     <div id="mustlogin" class="container mx-auto text-center" style="margin: 150px 0px 80px 0px;">
         <div class="col-md-6 mx-auto text-center">

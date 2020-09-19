@@ -11,6 +11,15 @@
                 <h1>Activity</h1>
             </div>
         </div>
+        <div class="container table-responsive">
+            <table class="table">
+                {% for a in act %}
+                    <tr>
+                        <td>#{{ a.activity }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
     </div>
     <div class="text" style="padding: 10px; margin-top: 200px;">
         <textarea name="" class="form-control" placeholder="Click to add text" id="" cols="30" rows="10"></textarea>

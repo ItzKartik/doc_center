@@ -17,12 +17,23 @@
                 <div class="plan bg_wheat  mx-auto text-center" style="width: 200px; padding: 20px; margin: 10px;">
                     <h3 style="font-weight: 700;">Type {{ t.type_name }}</h3>
                     <br>
-                    <button onclick="type_selected('{{ t.type_name }}');" class="selected_agreement btn btn-dark">Select</button>
+                    <form action="{% url 'membership' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <input type="text" class="form-control" style="display: none;" value="{{ t.type_id }}" name="type_id">
+                        </div>
+                        <button onclick="type_selected('{{ t.type_name }}');" class="selected_agreement btn btn-dark">Select</button>
+                    </form>
                 </div>
                 {% endfor %}
             </div>
         </div>
     </div>
+    <script>
+        function type_selected(){
+
+        }
+    </script>
     <div class="text" style="padding: 10px; margin-top: 170px;">
         <textarea name="" class="form-control" placeholder="Click to add text" id="" cols="30" rows="10"></textarea>
     </div>
