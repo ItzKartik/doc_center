@@ -14,14 +14,13 @@ class types(models.Model):
 class type_of_membership(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     membership_type = models.ForeignKey(types, on_delete=models.CASCADE)
-
     def __str__(self):
-        return self.membership_type
+        return self.membership_type.type_name
 
 class docs(models.Model):
     doc_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    type_of = models.ForeignKey(type_of_membership, on_delete=models.CASCADE)
+    type_of =  models.ForeignKey(types, on_delete=models.CASCADE)
     doc_name = models.CharField(max_length=200)
     doc = models.FileField(upload_to='docs/')
 

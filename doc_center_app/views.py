@@ -78,7 +78,7 @@ def upload_docs(request):
     if request.method == 'POST':
         doc_name = request.POST['doc_name']
         docs = models.docs.objects.create(
-            user_id=give_u(request.user.username), doc_name=doc_name, type_of=check_type(request), doc=request.FILES['document'])
+            user_id=give_u(request.user.username), doc_name=doc_name, type_of=check_type(request).membership_type, doc=request.FILES['document'])
         activity = doc_name+' Uploaded'
         save_activity(request, activity)
         return redirect('docs')
@@ -92,9 +92,10 @@ def docs(request):
         return HttpResponse(d, content_type="application/json")
     else:
         user_type_of = check_type(request)
-        print(user_type_of.membership_type.number_name)
+        user_type_of = user_type_of.membership_type
+        docs = models.docs.objects.filter(type_of=user_type_of)
         if user_type_of:
-            docs = models.docs.objects.filter(type_of__lte=user_type_of)
+            docs = models.docs.objects.filter(type_of=user_type_of)
             context = {
                 'docs': docs,
                 'error': None
@@ -117,7 +118,7 @@ def bids(request):
 
         type_of = check_type(request)
         type_of = type_of.membership_type.number_name
-        docs_type = docs.type_of.membership_type.number_name
+        docs_type = docs.type_of.number_name
         if docs_type <= type_of:
             bids = models.bids.objects.create(linker=docs, owner=docs.user_id.username, user_id=give_u(request.user.username), bid_amt=bid_amt)
             activity = 'Bidded On '+docs.doc_name
