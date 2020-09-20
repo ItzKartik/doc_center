@@ -1,1 +1,1 @@
-web: gunicorn visaspace.wsgi
+web: gunicorn document_center.wsgi
