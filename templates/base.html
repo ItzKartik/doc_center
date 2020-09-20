@@ -142,9 +142,15 @@
         <li class="nav-item">
             <a class="activity nav-link" class="activity" href="{% url 'activity' %}">Activity</a>
         </li>
+        {% if user.is_authenticated %}
         <li class="nav-item">
-            <a class="logout nav-link" class="logout" href="{% url 'signout' %}">Logout</a>
+            <a class="login nav-link" class="logout" href="{% url 'getin' %}">Logout</a>
         </li>
+        {% else %}
+        <li class="nav-item">
+            <a class="logout nav-link" class="logout" href="{% url 'signout' %}">Login</a>
+        </li>
+        {% endif %}
         </ul>
     </div>
     <a class="navbar-brand" href="{% url 'home' %}">Doc Center</a>

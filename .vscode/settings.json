@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/home/prince7/Desktop/doc_env/bin/python3.8",
+    "python.pythonPath": "/home/prince7/Desktop/env/bin/python3.8",
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true
 }

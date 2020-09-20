@@ -92,9 +92,8 @@ def docs(request):
         return HttpResponse(d, content_type="application/json")
     else:
         user_type_of = check_type(request)
-        user_type_of = user_type_of.membership_type
-        docs = models.docs.objects.filter(type_of=user_type_of)
         if user_type_of:
+            user_type_of = user_type_of.membership_type
             docs = models.docs.objects.filter(type_of=user_type_of)
             context = {
                 'docs': docs,
