@@ -20,18 +20,19 @@ class type_of_membership(models.Model):
 class docs(models.Model):
     doc_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    type_of =  models.ForeignKey(types, on_delete=models.CASCADE)
+    type_of =  models.CharField(max_length=200)
     doc_name = models.CharField(max_length=200)
     doc = models.FileField(upload_to='docs/')
+    pub_date = models.DateTimeField(auto_now_add=True)
 
 class bids(models.Model):
     linker = models.ForeignKey(docs, on_delete=models.CASCADE)
     owner = models.CharField(max_length=200)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     bid_amt = models.IntegerField()
-    bid_date = models.DateTimeField(auto_now=True)
+    bid_date = models.DateTimeField(auto_now_add=True)
 
 class activity(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     activity = models.CharField(max_length=1000)
-    pub_date = models.DateTimeField(auto_now=True)
+    pub_date = models.DateTimeField(auto_now_add=True)

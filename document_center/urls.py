@@ -7,6 +7,8 @@ from django.conf.urls.static import static
 from django.views.generic import TemplateView
 
 urlpatterns = [
+    path('cart/', TemplateView.as_view(template_name="homepages/cart.html"), name="cart"),
+
     path('getin/', views.getin, name="getin"),
     path('logout/', views.logout_view, name="signout"),
     path('req/', TemplateView.as_view(template_name="req.html"), name="req"),

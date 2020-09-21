@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+{% if user.is_authenticated %}
+    <script>
+        $('.cart').addClass('active');
+    </script>
+    <div id="home" class="container mx-auto text-center" style="margin: 10px 0px 80px 0px;">
+        <div class="row">
+            <div class="col-md-9 mx-auto text-center .col-md-pull-12">
+                <h1>Cart</h1>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="text" style="padding: 10px; margin-top: 50px;">
+        <textarea name="" class="form-control" placeholder="Click to add text" id="" cols="30" rows="10"></textarea>
+    </div> -->
+{% else %}
+    <div id="mustlogin" class="container mx-auto text-center" style="margin: 150px 0px 80px 0px;">
+        <div class="col-md-6 mx-auto text-center">
+            <h1>You must logged in to access homepage</h1>
+        </div>
+    </div>
+    <style>
+        #contacts, .menus{
+            display: none;
+        }
+    </style>
+{% endif %}
+{% endblock %}
